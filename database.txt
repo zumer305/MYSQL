@@ -1,0 +1,136 @@
+CREATE DATABASE college;
+CREATE DATABASE if not exists college;
+
+
+CREATE DATABASE zumer;
+DROP DATABASE zumer;
+DROP DATABASE college;
+DROP DATABASE if exists college; 
+
+
+use college;
+
+CREATE TABLE students(
+rollno INT,
+name VARCHAR(30),
+age INT
+);
+
+insert into students
+values
+(101,"zumer",12),
+(102,"niaz",15);
+
+drop table students;
+select * from students;
+show databases;
+
+use college;
+
+show tables;
+
+
+create table user(
+id int primary key,
+age int,
+name varchar(50),
+email varchar(50) Not null,
+followers int default 0,
+following int,
+constraint check (age>=13)
+);
+
+insert into user
+(id,age,name,email,followers,following)
+values
+(201, 19, 'Usman', 'usman123@gmail.com', 95, 12),
+(202, 28, 'Hina', 'hina.khan@gmail.com', 310, 45),
+(203, 33, 'Bilal', 'bilal_r@yahoo.com', 150, 20),
+(204, 22, 'Sana', 'sana.malik@gmail.com', 78, 9);
+
+select * from user where age>20;
+select name,age from user where age>20;
+select name,age from user where age+1=20;
+select name,age from user where age>25 and followers>200;
+select name,age from user where age>25 or followers>200;
+select name,age from user where age between 20 and 30;
+select * from user where email in ('hina.khan@gmail.com',"xyz@gmail.com");
+select name,age from user where age in (22,33);
+select name,age from user where age not in (22,33);
+select name,age from user where age>20 limit 2;
+select name,followers from user order by followers asc; 
+select name,followers from user order by followers desc; 
+select  max(followers) from user;
+select  min(followers) from user;
+select  sum(followers) from user;
+select  avg(followers) from user;
+select count(age) from user where age =19;
+insert into user
+(id,age,name,email,followers,following)
+values
+(205, 19, 'Usmanam', 'usman0123@gmail.com', 905, 102),
+(209, 28, 'Hinara', 'hinar.khan@gmail.com', 3130, 445);
+
+select age,count(id)  from user group by age;
+select age,max(followers)  from user group by age;
+
+SELECT age, COUNT(id)
+FROM user
+GROUP BY age;
+
+SELECT age, SUM(followers)
+FROM user
+GROUP BY age
+HAVING SUM(followers) > 500;
+
+SELECT name, followers
+FROM user
+ORDER BY followers DESC;
+
+UPDATE user
+SET followers = 150
+WHERE name = 'Usman';
+
+DELETE FROM user
+WHERE name = 'Hina';
+
+TRUNCATE TABLE user;
+
+
+ALTER TABLE user
+ADD phone VARCHAR(20);
+
+ALTER TABLE user
+DROP COLUMN phone;
+
+ALTER TABLE user
+RENAME COLUMN name TO username;
+
+ALTER TABLE user
+CHANGE COLUMN username full_name VARCHAR(100);
+
+ALTER TABLE user
+MODIFY COLUMN age SMALLINT;
+
+
+
+
+drop table user;
+select id, name from user;
+select distinct age from user;
+select * from user;
+
+create table post(
+id int primary key,
+content varchar(50),
+user_id int,
+foreign key(user_id) references user(id)
+);
+drop table post;
+
+
+
+
+
+
+
